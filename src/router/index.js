@@ -1,15 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import login from '@/components/Login'
+import home from '@/components/Home'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
+    { path: '/', redirect: '/login' },
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/login',
+      name: 'login',
+      component: login
+    }, {
+      path: '/home',
+      name: 'home',
+      component: home
     }
   ]
 })
+
+// 挂载路由导航守卫
+/*to 将要访问的路径
+from 从哪个路径跳转过来
+next 表示放行 是一个函数
+next() 放行    next('/login')  强制跳转到login */
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next();
+  // 获取token
+  const tokenStr = sessionStorage.getItem('token')
+  if (!tokenStr) return next('/login')
+  next()
+})
+
+export default router
