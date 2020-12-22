@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/Login'
 import home from '@/components/Home'
+import Welcome from '@/components/Welcome.vue'
+import Users from '@/components/user/Users.vue'
 
 Vue.use(Router)
 
@@ -15,7 +17,20 @@ const router = new Router({
     }, {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      redirect: '/welcome',
+      children: [
+        {
+          path: '/welcome',
+          name: 'Welcom',
+          component: Welcome
+        },
+        {
+          path: '/users',
+          name: 'Users',
+          component: Users
+        }
+      ]
     }
   ]
 })
