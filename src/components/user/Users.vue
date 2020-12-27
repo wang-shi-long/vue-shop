@@ -340,7 +340,7 @@ export default {
         //   可以发起添加用户的网络请求
         const { data: res } = await this.$http.post('users', this.addForm)
         if (res.meta.status !== 201) {
-          this.$message.error('添加用户失败!!!')
+          return this.$message.error('添加用户失败!!!')
         }
         this.$message.success('添加用户成功!!!')
         // 隐藏对话框
